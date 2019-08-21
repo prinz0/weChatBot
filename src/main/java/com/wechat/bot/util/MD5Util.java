@@ -1,5 +1,7 @@
 package com.wechat.bot.util;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -8,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
  * @Desc：
  * @Time: 2019-08-16
  */
-public class Utils {
+public class MD5Util {
 
     public static String MD5(String str) throws Exception {
         String[] chars = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
@@ -37,4 +39,16 @@ public class Utils {
         }
 
     }
+
+
+    public static String encode(String password) {
+        return DigestUtils.md5Hex(password);
+    }
+
+    public static String encode(String password, Object mix) {
+        if (mix != null)
+            return DigestUtils.md5Hex(mix.toString() + password);
+        return DigestUtils.md5Hex(password);
+    }
+
 }

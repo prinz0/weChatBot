@@ -1,6 +1,6 @@
 package com.wechat.bot.http;
 
-import com.wechat.bot.Constans;
+import com.wechat.bot.util.Constant;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -73,9 +73,9 @@ public class HttpUtils {
             HttpPost request = new HttpPost();
             request.setURI(new URI(url));
             request.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-            request.setHeader("apikey", Constans.apikey);
-            request.setHeader("hswebtime", Constans.hswebtime);
-            request.setHeader("token", Constans.token);
+            request.setHeader("apikey", Constant.apikey);
+            request.setHeader("hswebtime", Constant.hswebtime);
+            request.setHeader("token", Constant.token);
             // 设置参数
             List<NameValuePair> nvps = new ArrayList<>();
             for (Entry<String, Object> entry : params.entrySet()) {
