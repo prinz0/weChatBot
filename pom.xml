@@ -12,6 +12,12 @@
     <groupId>com.wechat</groupId>
     <artifactId>bot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <!--默认为jar方式-->
+    <!--<packaging>jar</packaging>-->
+    <!--改为war方式-->
+    <packaging>war</packaging>
+
     <name>bot</name>
     <description>project for WeChat Bot</description>
 
@@ -38,6 +44,24 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -50,12 +74,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
+
         <!--http请求 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
