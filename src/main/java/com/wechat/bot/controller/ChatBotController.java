@@ -39,6 +39,12 @@ public class ChatBotController {
 
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger();
 
+
+    @RequestMapping("/home")
+    @ResponseBody
+    public String home(){
+        return "1111";
+    }
     /**
      * 开发者登录
      */
