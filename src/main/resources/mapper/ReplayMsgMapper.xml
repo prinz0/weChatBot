@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wechat.bot.mapper.ReplayMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.wechat.bot.entity.ReplayMsg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="action_id" property="actionId" jdbcType="INTEGER" />
+    <result column="groupid" property="groupid" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="INTEGER" />
+    <result column="group_account" property="groupAccount" jdbcType="VARCHAR" />
+    <result column="replay_msg" property="replayMsg" jdbcType="LONGVARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="querykeyword" resultType="com.wechat.bot.entity.ReplayMsg" parameterType="com.wechat.bot.entity.KeywordBean">
+    select * FROM cb_trigger_msg m
+          WHERE m.groupid= (SELECT k.replay_groupid FROM cb_keyword k
+          WHERE k.account = #{account}
+          and k.type = #{type}
+          and k.`key`= #{contentKey})
+  </select>
+
+</mapper>

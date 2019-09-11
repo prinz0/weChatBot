@@ -6,11 +6,15 @@ import com.wechat.bot.entity.AreaBean;
 import com.wechat.bot.entity.BaseBean;
 import com.wechat.bot.http.ApiUrl;
 import com.wechat.bot.http.HttpUtils;
+import com.wechat.bot.service.CbGroupService;
+import com.wechat.bot.service.CbWechatService;
+import com.wechat.bot.service.ReplayActionService;
 import com.wechat.bot.util.Constant;
 import com.wechat.bot.util.GsonUtil;
 import com.wechat.bot.util.MD5Util;
 
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,15 +33,29 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @Author: Mr.li
- * @Desc： 机器人自动化模块
+ * @Desc： 第一步
  * @Time: 2019-08-16
  */
 @Controller
 @RequestMapping("/bot")
-public class ChatBotController {
-
+public class FirstController {
 
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger();
+
+    @RequestMapping(path = "/home")
+    @ResponseBody
+    public String login() {
+        return "11";
+    }
+
+    @Autowired
+    private CbGroupService mService;
+
+    @Autowired
+    private CbWechatService mCbWechatService;
+
+    @Autowired
+    private ReplayActionService mKeywordActionService;
 
     /**
      * 开发者登录
@@ -71,20 +89,28 @@ public class ChatBotController {
         BaseBean<List<AreaBean>> model = GsonUtil.GsonToBean(res, new TypeToken<BaseBean<List<AreaBean>>>() {
         }.getType());
         session.setAttribute("area_id", model.getData().get(0).getId());
+
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("account", "licx758");
+//        map.put("manage", 1);
+//        map.put("groupid", "22211648384@chatroom");
+//        List<CbGroup> cbGroups = mService.queryIsManage(map);
+//        GroupChat msg = new GroupChat();
+//        msg.setG_number("22211648384@chatroom");
+//        msg.setAccount("wxid_i6qsbbjenjuj22");
+//        msg.setName("微控Team_Mr Li");
+//        msg.setMy_account("licx758");
+//        if (cbGroups != null && cbGroups.size() > 0) {
+//            msg.setContent(cbGroups.get(0).getContent());
+//            //是管理群 新成员入群开启群内@
+//            MessageUtil.groupAt(msg);
+//        }
+
+
         //发送Post请求
         return res;
     }
 
-
-    /**
-     * 所有消息事件
-     */
-    @RequestMapping(path = "/callBackData", method = RequestMethod.POST)
-    @ResponseBody
-    public void callbackData(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        logger.debug(request.getCookies().toString());
-
-    }
 
     /**
      * 获取微信二维码
@@ -94,10 +120,8 @@ public class ChatBotController {
     public String scan(@RequestParam Boolean isFirst, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> params = new HashMap<>();
         //此处必须是您连接的外网接口 用于接收二维码图片的接口方法
-        params.put("callback_url", "http://www.baidu.com");
-        if (isFirst) {
-            params.put("service_area", session.getAttribute("area_id"));
-        } else
+        params.put("callback_url", ApiUrl.serviceUrl + "/config/callBackData");
+        if (!isFirst)
             params.put("account", "licx758");
         params.put("extend", "");
         //发送Post请求

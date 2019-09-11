@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wechat.bot.mapper.CbWechatMapper" >
+  <resultMap id="BaseResultMap" type="com.wechat.bot.entity.CbWechat" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wechat_account" property="wechatAccount" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="last_time" property="lastTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="closeon_time" property="closeonTime" jdbcType="VARCHAR" />
+    <result column="selfmotionadd" property="selfmotionadd" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wechat_account, uid, status, type, create_time, last_time, update_time, closeon_time, 
+    selfmotionadd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cb_wechat
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cb_wechat
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wechat.bot.entity.CbWechat" >
+    insert into cb_wechat (id, wechat_account, uid, 
+      status, type, create_time, 
+      last_time, update_time, closeon_time, 
+      selfmotionadd)
+    values (#{id,jdbcType=INTEGER}, #{wechatAccount,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, 
+      #{lastTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{closeonTime,jdbcType=VARCHAR}, 
+      #{selfmotionadd,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wechat.bot.entity.CbWechat" >
+    insert into cb_wechat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wechatAccount != null" >
+        wechat_account,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="closeonTime != null" >
+        closeon_time,
+      </if>
+      <if test="selfmotionadd != null" >
+        selfmotionadd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wechatAccount != null" >
+        #{wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeonTime != null" >
+        #{closeonTime,jdbcType=VARCHAR},
+      </if>
+      <if test="selfmotionadd != null" >
+        #{selfmotionadd,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wechat.bot.entity.CbWechat" >
+    update cb_wechat
+    <set >
+      <if test="wechatAccount != null" >
+        wechat_account = #{wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeonTime != null" >
+        closeon_time = #{closeonTime,jdbcType=VARCHAR},
+      </if>
+      <if test="selfmotionadd != null" >
+        selfmotionadd = #{selfmotionadd,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wechat.bot.entity.CbWechat" >
+    update cb_wechat
+    set wechat_account = #{wechatAccount,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      last_time = #{lastTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      closeon_time = #{closeonTime,jdbcType=VARCHAR},
+      selfmotionadd = #{selfmotionadd,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectWechat" resultType="com.wechat.bot.entity.CbWechat" parameterType="java.lang.String">
+            SELECT * from cb_wechat c where c.wechat_account=#{account}
+  </select>
+
+
+</mapper>

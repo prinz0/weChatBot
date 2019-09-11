@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wechat.bot.mapper.CbGroupMapper">
+    <resultMap id="BaseResultMap" type="com.wechat.bot.entity.CbGroup">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="belone_account" property="beloneAccount" jdbcType="VARCHAR" />
+        <result column="groupid" property="number" jdbcType="VARCHAR" />
+        <result column="groupname" property="name" jdbcType="VARCHAR" />
+        <result column="disturb" property="disturb" jdbcType="INTEGER" />
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+        <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+        <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertGroupList" useGeneratedKeys="true" keyProperty="id">
+        INSERT into cb_group (belone_account,groupid,groupname,disturb,thumb,createtime)
+        VALUES
+        <foreach collection="list" item="item" separator="," index="index">
+            (#{item.beloneAccount},#{item.number},#{item.name},#{item.disturb},#{item.thumb},#{item.createtime})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        belone_account=values(belone_account),
+        groupid=values(groupid),
+        groupname=values(groupname),
+        disturb=values(disturb),
+        thumb=values(thumb),
+        createtime=values(createtime)
+    </insert>
+
+    <select id="queryIsManage" resultType="com.wechat.bot.entity.CbGroup">
+        select * from cb_group where belone_account=#{account} and is_manage =#{manage} and groupid =#{groupid}
+    </select>
+
+
+
+</mapper>
